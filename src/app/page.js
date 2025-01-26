@@ -24,7 +24,7 @@ export default function Page() {
     }
   }, []);
 
-  fetchReseter = () => {
+  const fetchReseter = () => {
     const data = axios.get('https://manaopili-backend.onrender.com/')
     return data
   }
