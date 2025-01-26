@@ -52,7 +52,7 @@ export default function Page() {
   }
 
   const getData = async () => {
-    const data = await axios.get("https://manaopili-dashboard.vercel.app/api/dashboard/")
+    const data = await axios.get("https://manaopili-dashboard.vercel.app/api/dashboard")
     console.log(data)
     setData(data?.data?.data)
   }
