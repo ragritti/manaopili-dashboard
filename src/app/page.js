@@ -1,61 +1,69 @@
 'use client'
 
-import { useEffect, useState, useCallback } from "react"
-import axios from "axios"
+import { useEffect, useState } from "react"
 import Dashboard from "./Dashboard"
+import axios from "axios"
+
+// This would typically come from your API
+const sampleData = [
+  {
+    people: {
+      standard: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      professional: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      enterprise: [0, 0, 4],
+    },
+    process: {
+      standard: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      professional: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      enterprise: [0, 0, 2],
+    },
+    technology: {
+      standard: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      professional: [0, 0, 1, 0, 1, 0, 0, 0, 0],
+      enterprise: [0, 0, 0],
+    },
+    _id: "67963a17ef1712e9caa7e7fc",
+    email: "test@gmail.com",
+    OrganizationName: "dndndndnd",
+    __v: 0,
+  },
+]
+
 
 export default function Page() {
   const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchData = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const response = await axios.get("https://manaopili-dashboard.vercel.app/api/dashboard/");
-      setData(response?.data?.data || []);
-      setError(null);
-    } catch (err) {
-      console.error('Data fetch error:', err);
-      setError(err.message);
-      setData([]);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  const fetchReseter = () => {
-    const data = axios.get('https://manaopili-backend.onrender.com/')
-    return data
+  function callApiPeriodically(url, interval = 5000) {
+    const fetchApi = async () => {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log('API Response:', data);
+      } catch (error) {
+        console.error('API Call Error:', error);
+      }
+    };
+  
+    // Initial call
+    fetchApi();
+  
+    // Periodic calls
+    return setInterval(fetchApi, interval);
   }
 
+  const getData = async () => {
+    const data = await axios.get("https://manaopili-dashboard.vercel.app/api/dashboard/")
+    console.log(data)
+    setData(data?.data?.data)
+  }
+  
   useEffect(() => {
-    const controller = new AbortController();
-    
-    const startPeriodicFetch = () => {
-      fetchData();
-
-      const intervalId = setInterval(fetchReseter, 10000);
-      
-      return () => {
-        clearInterval(intervalId);
-        controller.abort();
-      };
-    };
-
-    const cleanup = startPeriodicFetch();
-    
-    return () => {
-      cleanup();
-    };
-  }, [fetchData]);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-
+    getData()
+  }, [])
   return (
     <div className="p-6">
-      <Dashboard data={data.length ? data : []} />
+      <Dashboard data={data} />
     </div>
   )
 }
+
