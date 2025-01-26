@@ -16,7 +16,7 @@ export default function Dashboard({ data }) {
 
   return (
     <div className="container mx-auto py-10">
-      <Card className="mb-6 w-[400px]">
+      <Card className="mb-6">
         <CardHeader>
           <CardTitle>Total Organizations</CardTitle>
         </CardHeader>
