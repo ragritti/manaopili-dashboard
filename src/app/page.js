@@ -35,30 +35,11 @@ export default function Page() {
   const [data, setData] = useState([]);
   const [activeTab, setActiveTab] = useState("total")
 
-  function callApiPeriodically(url, interval = 5000) {
-    const fetchApi = async () => {
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log('API Response:', data);
-      } catch (error) {
-        console.error('API Call Error:', error);
-      }
-    };
-
-    // Initial call
-    fetchApi();
-
-    // Periodic calls
-    return setInterval(fetchApi, interval);
-  }
-
   const getData = async (key = '') => {
     const payload = {
       key
     }
-    const data = await axios.post("https://manaopili-backend.onrender.com/api/dashboard", payload)
-    console.log(data)
+    const data = await axios.post("https://manaopili-dashboard.vercel.app/api/dashboard", payload)
     setData(data?.data?.data)
   }
 
@@ -77,6 +58,30 @@ export default function Page() {
     getData(value)
 
   }
+
+  useEffect(() => {
+    // Convert 12 minutes to milliseconds
+    const TWELVE_MINUTES = 12 * 60 * 1000;
+
+    // Function to be executed every 12 minutes
+    const doSomething = () => {
+      const now = new Date();
+      // Add your code here
+      const res = axios.get('https://manaopili-backend.onrender.com/')
+      console.log(`Function executed at: ${now.toLocaleTimeString()}, response: ${res}`);
+    }
+
+    doSomething();
+
+    // Start the interval
+    const intervalId = setInterval(doSomething, 5000);
+
+    // Cleanup function that runs when component unmounts
+    return () => {
+      clearInterval(intervalId);
+      console.log('Interval stopped');
+    };
+  }, []);
 
   useEffect(() => {
     getData()
