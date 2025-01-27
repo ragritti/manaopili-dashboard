@@ -10,9 +10,7 @@ export default function Dashboard({ data }) {
   const [selectedOrg, setSelectedOrg] = useState(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
-  if(!data.length) return <div>Loading...</div>
-
-  console.log(data,'YOYOYYOO')
+  if (!data.length) return <div>Loading...</div>
 
   return (
     <div className="container mx-auto py-10">
