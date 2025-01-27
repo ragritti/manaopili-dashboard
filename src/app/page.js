@@ -57,7 +57,7 @@ export default function Page() {
     const payload = {
       key
     }
-    const data = await axios.post("http://localhost:3000/api/dashboard", payload)
+    const data = await axios.post("https://manaopili-backend.onrender.com/api/dashboard", payload)
     console.log(data)
     setData(data?.data?.data)
   }
