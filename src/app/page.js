@@ -64,17 +64,17 @@ export default function Page() {
     const TWELVE_MINUTES = 12 * 60 * 1000;
 
     // Function to be executed every 12 minutes
-    const doSomething = () => {
+    const doSomething = async() => {
       const now = new Date();
       // Add your code here
-      const res = axios.get('https://manaopili-backend.onrender.com/')
-      console.log(`Function executed at: ${now.toLocaleTimeString()}, response: ${res}`);
+      const res = await axios.get('https://manaopili-backend.onrender.com/')
+      console.log(`Function executed at: ${now.toLocaleTimeString()}, response: ${JSON.stringify(res?.data)}`);
     }
 
     doSomething();
 
     // Start the interval
-    const intervalId = setInterval(doSomething, 5000);
+    const intervalId = setInterval(doSomething, TWELVE_MINUTES);
 
     // Cleanup function that runs when component unmounts
     return () => {
