@@ -5,12 +5,25 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { CopyIcon } from "lucide-react"
+import { copyTextToClipboard } from "./utils"
 
 export default function Dashboard({ data }) {
   const [selectedOrg, setSelectedOrg] = useState(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   if (!data.length) return <div>Loading...</div>
+
+  const getData = (org) => {
+    const requiredData = {
+      OrganizationName: org?.OrganizationName,
+      email: org?.email,
+      people: org?.people,
+      process: org?.process,
+      technology: org?.technology
+    }
+    return JSON.stringify(requiredData, null, 2)
+  }
 
   return (
     <div className="container mx-auto py-10">
@@ -42,14 +55,21 @@ export default function Dashboard({ data }) {
                   <TableCell>{org.OrganizationName}</TableCell>
                   <TableCell>{org.email}</TableCell>
                   <TableCell>
-                    <Button
-                      onClick={() => {
-                        setSelectedOrg(org)
-                        setIsDialogOpen(true)
-                      }}
-                    >
-                      View Data
-                    </Button>
+                    <div className="flex justify-start items-center gap-2">
+                      <Button
+                        onClick={() => {
+                          setSelectedOrg(org)
+                          setIsDialogOpen(true)
+                        }}
+                      >
+                        View Data
+                      </Button>
+                      <Button
+                        onClick={() => copyTextToClipboard(getData(org).toString()) }
+                      >
+                        <CopyIcon className="w-6 h-6" />
+                      </Button>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
@@ -61,14 +81,10 @@ export default function Dashboard({ data }) {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="max-w-4xl h-[80vh]">
           <DialogHeader>
-            <DialogTitle>{selectedOrg?.OrganizationName} Data</DialogTitle>
+            <DialogTitle>{selectedOrg?.OrganizationName} data</DialogTitle>
           </DialogHeader>
           <div className="h-full">
-            <iframe
-              src={`${selectedOrg?._id}`}
-              className="w-full h-full border-0"
-              title="Organization Metrics"
-            />
+            {getData(selectedOrg)}
           </div>
         </DialogContent>
       </Dialog>
