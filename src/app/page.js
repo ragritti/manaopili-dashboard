@@ -40,6 +40,7 @@ export default function Page() {
       key
     }
     const data = await axios.post("https://manaopili-dashboard.vercel.app/api/dashboard", payload)
+    console.log(data)
     setData(data?.data?.data)
   }
 
