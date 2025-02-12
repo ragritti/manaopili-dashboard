@@ -8,20 +8,14 @@ import Dashboard from "./Dashboard"
 // This would typically come from your API
 const sampleData = [
   {
-    people: {
-      standard: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      professional: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-      enterprise: [0, 0, 4],
+    "people": {
+      "standard": [2, 3, 1, 2, 1, 0, 1, 1, 0, 0],
     },
-    process: {
-      standard: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      professional: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-      enterprise: [0, 0, 2],
+    "process": {
+      "standard": [2, 2, 2, 2, 1, 0, 1, 1, 0, 0],
     },
-    technology: {
-      standard: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      professional: [0, 0, 1, 0, 1, 0, 0, 0, 0],
-      enterprise: [0, 0, 0],
+    "technology": {
+      "standard": [2, 3, 1, 3, 1, 0, 2, 1, 0, 0],
     },
     _id: "67963a17ef1712e9caa7e7fc",
     email: "test@gmail.com",
@@ -96,7 +90,7 @@ export default function Page() {
             </TabsTrigger>
           ))}
         </TabsList>
-        <Dashboard data={data} />
+        <Dashboard data={sampleData} />
       </Tabs>
     </div>
   )
