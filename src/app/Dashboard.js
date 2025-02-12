@@ -8,9 +8,13 @@ import { Button } from "@/components/ui/button"
 import { CopyIcon } from "lucide-react"
 import { copyTextToClipboard } from "./utils"
 
-export default function Dashboard({ data }) {
+export default function Dashboard({ data , handleGenerate}) {
   const [selectedOrg, setSelectedOrg] = useState(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [response,setResponse] = useState('')
+
+  if (!data.length) return <div>Loading...</div>
+
 
   const getData = (org) => {
     const requiredData = {
@@ -37,7 +41,7 @@ export default function Dashboard({ data }) {
       <Card>
         <CardHeader>
           <CardTitle>Organizations</CardTitle>
-        </CardHeader>
+        </CardHeader> 
         <CardContent>
           <Table>
             {data?.length > 0 && <TableHeader>
@@ -45,6 +49,7 @@ export default function Dashboard({ data }) {
                 <TableHead>Organization Name</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Data</TableHead>
+                <TableHead>Generate AI Response</TableHead>
               </TableRow>
             </TableHeader>}
             <TableBody>
@@ -68,6 +73,12 @@ export default function Dashboard({ data }) {
                         <CopyIcon className="w-6 h-6" />
                       </Button>
                     </div>
+                  </TableCell>
+                  <TableCell>
+                    <Button onClick={()=> handleGenerate(getData(org).toString())} >
+                      Generate
+                    </Button>
+                    {response&&<div>{response}</div>}
                   </TableCell>
                 </TableRow>
               )) :
