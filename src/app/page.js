@@ -41,7 +41,7 @@ export default function Page() {
     const payload = {
       key
     }
-    const data = await axios.post("http://localhost:3003/api/dashboard", payload)
+    const data = await axios.post("https://manaopili-dashboard.vercel.app/api/dashboard", payload)
     console.log(data)
     setData(data?.data?.data)
   }
@@ -69,6 +69,30 @@ export default function Page() {
     setRes(res2)
 
   }
+
+  useEffect(() => {
+    // Convert 12 minutes to milliseconds
+    const TWELVE_MINUTES = 12 * 60 * 1000;
+
+    // Function to be executed every 12 minutes
+    const doSomething = async() => {
+      const now = new Date();
+      // Add your code here
+      const res = await axios.get('https://manaopili-backend.onrender.com/')
+      console.log(`Function executed at: ${now.toLocaleTimeString()}, response: ${JSON.stringify(res?.data)}`);
+    }
+
+    doSomething();
+
+    // Start the interval
+    const intervalId = setInterval(doSomething, TWELVE_MINUTES);
+
+    // Cleanup function that runs when component unmounts
+    return () => {
+      clearInterval(intervalId);
+      console.log('Interval stopped');
+    };
+  }, []);
 
   useEffect(() => {
     getData()

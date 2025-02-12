@@ -44,16 +44,16 @@ export default function Dashboard({ data , handleGenerate}) {
         </CardHeader> 
         <CardContent>
           <Table>
-            <TableHeader>
+            {data?.length > 0 && <TableHeader>
               <TableRow>
                 <TableHead>Organization Name</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Data</TableHead>
                 <TableHead>Generate AI Response</TableHead>
               </TableRow>
-            </TableHeader>
+            </TableHeader>}
             <TableBody>
-              {data?.map((org) => (
+              {data?.length > 0 ? data?.map((org) => (
                 <TableRow key={org._id}>
                   <TableCell>{org.OrganizationName}</TableCell>
                   <TableCell>{org.email}</TableCell>
@@ -68,7 +68,7 @@ export default function Dashboard({ data , handleGenerate}) {
                         View Data
                       </Button>
                       <Button
-                        onClick={() => copyTextToClipboard(getData(org).toString()) }
+                        onClick={() => copyTextToClipboard(getData(org).toString())}
                       >
                         <CopyIcon className="w-6 h-6" />
                       </Button>
@@ -81,7 +81,11 @@ export default function Dashboard({ data , handleGenerate}) {
                     {response&&<div>{response}</div>}
                   </TableCell>
                 </TableRow>
-              ))}
+              )) :
+                <div className="flex w-full justify-center items-center h-52 text-gray-500">
+                  No users have been added yet. Let's wait for some users to join us!
+                </div>
+              }
             </TableBody>
           </Table>
         </CardContent>
@@ -92,8 +96,8 @@ export default function Dashboard({ data , handleGenerate}) {
           <DialogHeader>
             <DialogTitle>{selectedOrg?.OrganizationName} data</DialogTitle>
           </DialogHeader>
-          <div className="h-full">
-            {getData(selectedOrg)}
+          <div className="h-full p-4 bg-gray-100 rounded-lg">
+            <pre className="whitespace-pre-wrap">{getData(selectedOrg)}</pre>
           </div>
         </DialogContent>
       </Dialog>
