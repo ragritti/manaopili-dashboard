@@ -8,34 +8,13 @@ import { Button } from "@/components/ui/button"
 import { CopyIcon } from "lucide-react"
 import { copyTextToClipboard } from "./utils"
 
-export default function Dashboard({ data }) {
+export default function Dashboard({ data , handleGenerate}) {
   const [selectedOrg, setSelectedOrg] = useState(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [response,setResponse] = useState('')
 
   if (!data.length) return <div>Loading...</div>
 
-  const handleClick=async()=>{
-    let data={
-      "OrganizationName": "Ohana Customer",
-      "email": "",
-      "people": {
-        "standard": [2, 3, 1, 2, 1, 0, 1, 1, 0, 0],
-      },
-      "process": {
-        "standard": [2, 2, 2, 2, 1, 0, 1, 1, 0, 0],
-      },
-      "technology": {
-        "standard": [2, 3, 1, 3, 1, 0, 2, 1, 0, 0],
-      }
-    }
-    let a = await fetch('/api/gemini',{method:"POST",headers:{
-      "Content-Type": "application/json",},
-      body:JSON.stringify(data)})
-    let res=await a.json()
-    setResponse(res?.data)
-    console.log(res)
-  }
 
   const getData = (org) => {
     const requiredData = {
@@ -96,7 +75,7 @@ export default function Dashboard({ data }) {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Button onClick={handleClick} >
+                    <Button onClick={()=> handleGenerate(getData(org).toString())} >
                       Generate
                     </Button>
                     {response&&<div>{response}</div>}

@@ -4,6 +4,9 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import Dashboard from "./Dashboard"
+import { run } from "./gemini"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import Loading from "./loading"
 
 // This would typically come from your API
 const sampleData = [
@@ -28,30 +31,17 @@ const sampleData = [
 export default function Page() {
   const [data, setData] = useState([]);
   const [activeTab, setActiveTab] = useState("total")
+  const [res, setRes] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  function callApiPeriodically(url, interval = 5000) {
-    const fetchApi = async () => {
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log('API Response:', data);
-      } catch (error) {
-        console.error('API Call Error:', error);
-      }
-    };
+  var res2 = ''
 
-    // Initial call
-    fetchApi();
-
-    // Periodic calls
-    return setInterval(fetchApi, interval);
-  }
 
   const getData = async (key = '') => {
     const payload = {
       key
     }
-    const data = await axios.post("https://manaopili-dashboard.vercel.app/api/dashboard", payload)
+    const data = await axios.post("http://localhost:3003/api/dashboard", payload)
     console.log(data)
     setData(data?.data?.data)
   }
@@ -69,6 +59,14 @@ export default function Page() {
   const handleTabChange = (value) => {
     setActiveTab(value)
     getData(value)
+
+  }
+
+  const handleGenerate = async (data) => {
+    setLoading(true)
+    res2 = await run(data)
+    res2 && setLoading(false)
+    setRes(res2)
 
   }
 
@@ -90,7 +88,18 @@ export default function Page() {
             </TabsTrigger>
           ))}
         </TabsList>
-        <Dashboard data={sampleData} />
+        <Dashboard
+          data={data}
+          handleGenerate={handleGenerate}
+        />
+        <Dialog open={res || loading} onOpenChange={() => setRes('')}>
+        <DialogHeader>
+              <DialogTitle> data</DialogTitle>
+            </DialogHeader>
+          <DialogContent className="max-w-4xl h-[80vh] overflow-y-auto">
+            {res ? res : <Loading />}
+          </DialogContent>
+        </Dialog>
       </Tabs>
     </div>
   )
