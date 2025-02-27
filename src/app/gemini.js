@@ -12,7 +12,6 @@ export async function run(customerInput) {
         topP: 0.95,
         topK: 40,
         maxOutputTokens: 8192,
-
         responseMimeType: "text/plain",
     };
     const result = await model.generateContent({
