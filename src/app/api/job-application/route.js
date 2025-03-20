@@ -28,15 +28,43 @@ export const POST = async (req) => {
         let mailOptions = {
             from: "manaopili.info@gmail.com",
             to: ["manaopili.info@gmail.com", "shreyaskashyap2002@gmail.com"], // Multiple recipients
-            subject: "New Applicant Submission",
+            subject: "📩 New Applicant Submission - Manaopili",
             html: `
-                <h2>New Application Received</h2>
-                <p><strong>Name:</strong> ${Name}</p>
-                <p><strong>Email:</strong> ${Email}</p>
-                <p><strong>Message:</strong> ${message}</p>
-                <br/>
-                <p>Best Regards,</p>
-                <p>Manaopili Team</p>
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;">
+                    <div style="background-color: #0073e6; color: #ffffff; padding: 15px; text-align: center; border-radius: 10px 10px 0 0;">
+                        <h2 style="margin: 0;">New Job Application Received</h2>
+                    </div>
+
+                    <div style="padding: 20px; color: #333;">
+                        <p style="font-size: 18px; font-weight: bold;">Hello Manaopili Team,</p>
+                        <p>A new job application has been submitted. Below are the details:</p>
+
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Name:</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">${Name}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Email:</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">${Email}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Message:</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">${message}</td>
+                            </tr>
+                        </table>
+
+                        <p style="margin-top: 20px;">Please review the attached resume (if provided).</p>
+
+                        <div style="text-align: center; margin-top: 20px;">
+                            <a href="mailto:${Email}" style="background-color: #0073e6; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;">Reply to Applicant</a>
+                        </div>
+                    </div>
+
+                    <div style="background-color: #0073e6; color: white; text-align: center; padding: 10px; font-size: 14px; border-radius: 0 0 10px 10px;">
+                        <p style="margin: 0;">Manaopili Team | Contact: <a href="mailto:manaopili.info@gmail.com" style="color: white; text-decoration: none;">manaopili.info@gmail.com</a></p>
+                    </div>
+                </div>
             `,
             attachments: attachments, // Attach PDF if available
         };
