@@ -5,9 +5,9 @@ import puppeteer from "puppeteer";
 export const dynamic = "force-dynamic";
 
 // Define the Chromium executable path for serverless environments
-const CHROME_EXECUTABLE_PATH = 
-  process.env.CHROME_EXECUTABLE_PATH || 
-  "https://github.com/Sparticuz/chromium/releases/download/v121.0.0/chromium-v121.0.0-pack.tar";
+const CHROME_EXECUTABLE_PATH = await chromium.executablePath();
+  // process.env.CHROME_EXECUTABLE_PATH || 
+  // "https://github.com/Sparticuz/chromium/releases/download/v121.0.0/chromium-v121.0.0-pack.tar";
 
 // Singleton browser instance
 let browser;
