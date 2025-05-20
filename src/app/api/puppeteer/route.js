@@ -5,6 +5,8 @@ import fs from "fs";
 import path from "path";
 import { footerBase64, headerBase64 } from "@/app/utils";
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
+
 
 export const dynamic = "force-dynamic";
 
