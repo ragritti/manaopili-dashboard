@@ -227,7 +227,7 @@ export const POST = async (req) => {
       const page = await browser.newPage();
 
       // Set styled HTML content and wait for network to be idle
-      await page.setContent(htmlContent, { waitUntil: 'networkidle' });
+      await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
 
       // Emulate screen media type to preserve colors
       await page.emulateMedia({ media: 'screen' });
