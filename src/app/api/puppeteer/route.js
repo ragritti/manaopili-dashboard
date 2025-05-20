@@ -229,8 +229,8 @@ export const POST = async (req) => {
       // Set styled HTML content and wait for network to be idle
       await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
 
-      // Emulate screen media type to preserve colors
-      await page.emulateMedia({ media: 'screen' });
+      //Emulate screen media type to preserve colors
+      await page.emulateMediaType({ media: 'screen' });
 
       const pdfBuffer = await page.pdf({
           format: 'A4',
