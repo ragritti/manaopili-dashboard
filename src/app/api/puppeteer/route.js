@@ -252,15 +252,17 @@ export const POST = async (req) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "manaopili.info@gmail.com",
-        pass: "ewhw aown bfpz ggbj", // Use app password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS, // Use app password
       },
     });
 
+
+
     // Email content and PDF attachment
     const mailOptions = {
-      from: "manaopili.info@gmail.com",
-      to: ["", "rittirag@manaopili.com"],
+      from: process.env.EMAIL_USER,
+      to: ["", "rittirag@manaopili.com","shreyaskashyap2002@gmail.com"],
       subject: "📩 New Applicant Submission - Manaopili",
       html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;">
