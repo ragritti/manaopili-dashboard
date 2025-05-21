@@ -24,6 +24,7 @@ let browser;
  * Get or create a browser instance
  * @returns {Promise<Browser>}
  */
+
 async function getBrowser() {
   if (browser) return browser;
 
