@@ -150,7 +150,7 @@ export const POST = async (req) => {
       .replace('{{organizationName}}', Name)
       .replace('{{Email}}', Email)
 
-        const footerTemplate = `
+    const footerTemplate = `
     <div style="position: relative; width: 100%; text-align: center;  display:flex;">
         <img src="data:image/png;base64,${footerBase64}" alt="Logo" style="width: 100%; height: 80px; object-fit: cover;margin-top:-20px;margin-bottom:-30px;">
         <div style="position: absolute; top: 20%; left: 5%; z-index: 2; text-align: left;">
@@ -186,7 +186,7 @@ export const POST = async (req) => {
       </div>
     `;
 
-        const headerTemplate = `
+    const headerTemplate = `
              <style>
         html {
           -webkit-print-color-adjust: exact;
@@ -253,7 +253,7 @@ export const POST = async (req) => {
       service: "gmail",
       auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS, // Use app password
+        pass: process.env.EMAIL_PASS,// Use app password
       },
     });
 
@@ -262,41 +262,89 @@ export const POST = async (req) => {
     // Email content and PDF attachment
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: ["", "rittirag@manaopili.com","shreyaskashyap2002@gmail.com"],
+      to: ["", "rittirag@manaopili.com", "shreyaskashyap2002@gmail.com"],
       subject: "📩 New Applicant Submission - Manaopili",
-      html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;">
-          <div style="background-color: #0073e6; color: #ffffff; padding: 15px; text-align: center; border-radius: 10px 10px 0 0;">
-              <h2 style="margin: 0;">New Job Application Received</h2>
-          </div>
+      html: `<div
+                    style={{
+                        margin: 'auto',
+                        backgroundColor: '#ffffff',
+                        borderRadius: '10px',
+                        overflow: 'hidden',
+                        border: '1px solid #dddddd',
+                        width:'80%',
+                        fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
+                        color: '#333',
+                        lineHeight: 1.6,
+                    }}
+                >
+                    {/* Header */}
+                    <div style={{ backgroundColor: '#f9f9f9', padding: '16px', textAlign: 'center', borderBottom: '1px solid #eeeeee' }}>
+                        <h2 style={{ margin: 0, fontWeight: 600, fontSize: '20px', letterSpacing: '1px' }}>Mana'O Pili</h2>
+                    </div>
 
-          <div style="padding: 20px; color: #333;">
-              <p style="font-size: 18px; font-weight: bold;">Hello Manaopili Team,</p>
-              <p>A new job application has been submitted. Below are the details:</p>
+                    {/* Main Content */}
+                    <div style={{ padding: '24px' }}>
+                        <p>
+                            Thank you for taking the <strong>Digital Trip Survey</strong>.
+                        </p>
+                        <p>
+                            We hope that you will find the attached report useful in determining your next Digital Transformation steps.
+                        </p>
+                        <p>
+                            Our team is available if you would like to{' '}
+                            <a
+                                href="https://outlook.office.com/bookwithme/user/2d20486392d94cf9b823bc508a230121@manaopili.com?anonymous&ep=plink"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ color: '#455CFF', textDecoration: 'underline' }}
+                            >
+                                schedule a walk-through
+                            </a>{' '}
+                            of your report, or if you are interested in getting a detailed Digital Trip Survey report complete with specific
+                            recommendations.
+                        </p>
+                        <p>If you have any questions, please feel free to contact us.</p>
+                        <p style={{ marginTop: '30px' }}>
+                            Mahalo,<br />
+                            <strong>Mana&apos;o Pili, LLC</strong>
+                        </p>
+                    </div>
 
-              <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
-                  <tr>
-                      <td style="padding: 10px; border: 1px solid #ddd;"><strong>Name:</strong></td>
-                      <td style="padding: 10px; border: 1px solid #ddd;">${Name}</td>
-                  </tr>
-                  <tr>
-                      <td style="padding: 10px; border: 1px solid #ddd;"><strong>Email:</strong></td>
-                      <td style="padding: 10px; border: 1px solid #ddd;">${Email}</td>
-                  </tr>
-              </table>
+                    {/* CTA Button */}
+                    <div style={{ textAlign: 'center', padding: '16px' }}>
+                        <a
+                            href="https://outlook.office.com/bookwithme/user/2d20486392d94cf9b823bc508a230121@manaopili.com?anonymous&ep=plink"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                                backgroundColor: '#deff00',
+                                color: '#000000',
+                                padding: '12px 24px',
+                                textDecoration: 'none',
+                                borderRadius: '5px',
+                                fontWeight: 500,
+                                display: 'inline-block',
+                            }}
+                        >
+                            Schedule a Consultation
+                        </a>
+                    </div>
 
-              <p style="margin-top: 20px;">Please review the attached PDF document generated from the application.</p>
-
-              <div style="text-align: center; margin-top: 20px;">
-                  <a href="mailto:${Email}" style="background-color: #0073e6; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;">Reply to Applicant</a>
-              </div>
-          </div>
-
-          <div style="background-color: #0073e6; color: white; text-align: center; padding: 10px; font-size: 14px; border-radius: 0 0 10px 10px;">
-              <p style="margin: 0;">Manaopili Team | Contact: <a href="mailto:manaopili.info@gmail.com" style="color: white; text-decoration: none;">manaopili.info@gmail.com</a></p>
-          </div>
-      </div>
-  `,
+                    {/* Footer */}
+                    <div
+                        style={{
+                            backgroundColor: '#f9f9f9',
+                            padding: '12px',
+                            textAlign: 'center',
+                            borderTop: '1px solid #eeeeee',
+                            fontSize: '12px',
+                            color: '#777777',
+                        }}
+                    >
+                        &copy; 2025 Mana&apos;o Pili, LLC. All rights reserved.
+                    </div>
+                </div>
+`,
       attachments: [
         {
           filename: "application.pdf",
