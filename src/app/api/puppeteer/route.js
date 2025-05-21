@@ -264,86 +264,47 @@ export const POST = async (req) => {
       from: process.env.EMAIL_USER,
       to: ["", "rittirag@manaopili.com", "shreyaskashyap2002@gmail.com"],
       subject: "📩 New Applicant Submission - Manaopili",
-      html: `<div
-                    style={{
-                        margin: 'auto',
-                        backgroundColor: '#ffffff',
-                        borderRadius: '10px',
-                        overflow: 'hidden',
-                        border: '1px solid #dddddd',
-                        width:'80%',
-                        fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
-                        color: '#333',
-                        lineHeight: 1.6,
-                    }}
-                >
-                    {/* Header */}
-                    <div style={{ backgroundColor: '#f9f9f9', padding: '16px', textAlign: 'center', borderBottom: '1px solid #eeeeee' }}>
-                        <h2 style={{ margin: 0, fontWeight: 600, fontSize: '20px', letterSpacing: '1px' }}>Mana'O Pili</h2>
-                    </div>
+      html: `<div style="margin:auto;background-color:#ffffff;border-radius:10px;overflow:hidden;border:1px solid #dddddd;width:80%;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#333333;line-height:1.6;">
+  
+  <!-- Header -->
+  <div style="background-color:#f9f9f9;padding:16px;text-align:center;border-bottom:1px solid #eeeeee;">
+    <h2 style="margin:0;font-weight:600;font-size:20px;letter-spacing:1px;">Mana'O Pili</h2>
+  </div>
 
-                    {/* Main Content */}
-                    <div style={{ padding: '24px' }}>
-                        <p>
-                            Thank you for taking the <strong>Digital Trip Survey</strong>.
-                        </p>
-                        <p>
-                            We hope that you will find the attached report useful in determining your next Digital Transformation steps.
-                        </p>
-                        <p>
-                            Our team is available if you would like to{' '}
-                            <a
-                                href="https://outlook.office.com/bookwithme/user/2d20486392d94cf9b823bc508a230121@manaopili.com?anonymous&ep=plink"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{ color: '#455CFF', textDecoration: 'underline' }}
-                            >
-                                schedule a walk-through
-                            </a>{' '}
-                            of your report, or if you are interested in getting a detailed Digital Trip Survey report complete with specific
-                            recommendations.
-                        </p>
-                        <p>If you have any questions, please feel free to contact us.</p>
-                        <p style={{ marginTop: '30px' }}>
-                            Mahalo,<br />
-                            <strong>Mana&apos;o Pili, LLC</strong>
-                        </p>
-                    </div>
+  <!-- Main Content -->
+  <div style="padding:24px;">
+    <p>Thank you for taking the <strong>Digital Trip Survey</strong>.</p>
+    
+    <p>We hope that you will find the attached report useful in determining your next Digital Transformation steps.</p>
+    
+    <p>
+      Our team is available if you would like to 
+      <a href="https://outlook.office.com/bookwithme/user/2d20486392d94cf9b823bc508a230121@manaopili.com?anonymous&ep=plink" target="_blank" style="color:#455CFF;text-decoration:underline;">
+        schedule a walk-through
+      </a> 
+      of your report, or if you are interested in getting a detailed Digital Trip Survey report complete with specific recommendations.
+    </p>
+    
+    <p>If you have any questions, please feel free to contact us.</p>
+    
+    <p style="margin-top:30px;">
+      Mahalo,<br />
+      <strong>Mana'o Pili, LLC</strong>
+    </p>
+  </div>
 
-                    {/* CTA Button */}
-                    <div style={{ textAlign: 'center', padding: '16px' }}>
-                        <a
-                            href="https://outlook.office.com/bookwithme/user/2d20486392d94cf9b823bc508a230121@manaopili.com?anonymous&ep=plink"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                                backgroundColor: '#deff00',
-                                color: '#000000',
-                                padding: '12px 24px',
-                                textDecoration: 'none',
-                                borderRadius: '5px',
-                                fontWeight: 500,
-                                display: 'inline-block',
-                            }}
-                        >
-                            Schedule a Consultation
-                        </a>
-                    </div>
+  <!-- CTA Button -->
+  <div style="text-align:center;padding:16px;">
+    <a href="https://outlook.office.com/bookwithme/user/2d20486392d94cf9b823bc508a230121@manaopili.com?anonymous&ep=plink" target="_blank" style="background-color:#deff00;color:#000000;padding:12px 24px;text-decoration:none;border-radius:5px;font-weight:500;display:inline-block;">
+      Schedule a Consultation
+    </a>
+  </div>
 
-                    {/* Footer */}
-                    <div
-                        style={{
-                            backgroundColor: '#f9f9f9',
-                            padding: '12px',
-                            textAlign: 'center',
-                            borderTop: '1px solid #eeeeee',
-                            fontSize: '12px',
-                            color: '#777777',
-                        }}
-                    >
-                        &copy; 2025 Mana&apos;o Pili, LLC. All rights reserved.
-                    </div>
-                </div>
+  <!-- Footer -->
+  <div style="background-color:#f9f9f9;padding:12px;text-align:center;border-top:1px solid #eeeeee;font-size:12px;color:#777777;">
+    &copy; 2025 Mana'o Pili, LLC. All rights reserved.
+  </div>
+</div>
 `,
       attachments: [
         {
