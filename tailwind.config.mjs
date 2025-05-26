@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
   	extend: {
+		 fontFamily: {
+        degular: ['Degular','sans']
+      },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
