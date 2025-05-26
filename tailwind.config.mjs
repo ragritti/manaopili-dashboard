@@ -9,7 +9,7 @@ export default {
   theme: {
   	extend: {
 		 fontFamily: {
-        degular: ['Degular','sans']
+        degular: ['Degular','sans-serif']
       },
   		colors: {
   			background: 'hsl(var(--background))',
