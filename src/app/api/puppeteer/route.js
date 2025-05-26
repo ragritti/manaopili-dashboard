@@ -215,7 +215,7 @@ export const POST = async (req) => {
                         <path d="M222.938 7.56816C222.938 6.67603 223.062 5.83439 223.312 5.04536C223.436 4.58877 223.609 4.1995 223.825 3.87758C224.044 3.55565 224.267 3.26109 224.495 2.98966C225.138 2.24271 225.906 1.66197 226.798 1.24536C227.691 0.830855 228.646 0.622559 229.664 0.622559H237.917C238.125 0.622559 238.228 0.725655 238.228 0.93396V4.35942C238.228 4.56773 238.123 4.67082 237.917 4.67082H229.852C229.041 4.83705 228.44 5.25786 228.046 5.93117C227.651 6.60658 227.455 7.48399 227.455 8.56339V16.4411C227.518 17.1691 227.752 17.7435 228.156 18.1686C228.56 18.5936 229.126 18.8377 229.854 18.9008H237.919C238.127 18.9008 238.23 19.0039 238.23 19.2122V22.6376C238.23 22.846 238.125 22.949 237.919 22.949H229.946C229.323 22.949 228.772 22.8922 228.297 22.7786C227.819 22.665 227.404 22.5345 227.051 22.3894C226.262 22.099 225.557 21.6256 224.934 20.9733C224.311 20.3189 223.802 19.5362 223.409 18.623C223.306 18.3958 223.201 18.0886 223.097 17.7035C222.992 17.3206 222.942 16.8472 222.942 16.2875V7.56816H222.938Z" fill="white"/>
                       </svg>
     <div style="position: absolute; top: 33%; left: 5%; margin-right: 20px;">
-    <p style="margin: 0; color: white !important; font-size: 26px; padding: 5px; padding-bottom: 20px; font-family: 'degular-display', sans-serif; font-weight: bold; ">
+    <p style="margin: 0; color: white !important; font-size: 24px; padding: 5px; padding-bottom: 20px; font-family: 'Degular'; font-weight: normal; ">
         ServiceNow - ${survey} Report Made for ${Name}
     </p>
 </div>
@@ -264,7 +264,7 @@ export const POST = async (req) => {
       from: process.env.EMAIL_USER,
       to: ["", "rittirag@manaopili.com", "shreyaskashyap2002@gmail.com"],
       subject: "📩 New Applicant Submission - Manaopili",
-      html: `<div style="margin:auto;background-color:#ffffff;border-radius:10px;overflow:hidden;border:1px solid #dddddd;width:80%;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#333333;line-height:1.6;">
+      html: `<div style="margin:auto;background-color:#ffffff;border-radius:10px;overflow:hidden;border:1px solid #dddddd;width:90%;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#333333;line-height:1.6;">
   
   <!-- Header -->
   <div style="background-color:#f9f9f9;padding:16px;text-align:center;border-bottom:1px solid #eeeeee;">
