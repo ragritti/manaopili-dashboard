@@ -1,11 +1,13 @@
-import chromium from "@sparticuz/chromium";
-import puppeteerCore from "puppeteer-core";
-import puppeteer from "puppeteer";
-import fs from "fs";
-import path from "path";
+import connectMongoDB from "@/app/libs/mongodb";
+import SurveyData from "@/app/models/SurveyData";
 import { footerBase64, headerBase64 } from "@/app/utils";
+import chromium from "@sparticuz/chromium";
+import fs from "fs";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import path from "path";
+import puppeteer from "puppeteer";
+import puppeteerCore from "puppeteer-core";
 
 export const dynamic = "force-dynamic";
 
@@ -14,8 +16,6 @@ const htmlTemplate = fs.readFileSync(htmlTemplatePath, 'utf8');
 
 // Define the Chromium executable path for serverless environments
 const CHROME_EXECUTABLE_PATH = await chromium.executablePath();
-// process.env.CHROME_EXECUTABLE_PATH || 
-// "https://github.com/Sparticuz/chromium/releases/download/v121.0.0/chromium-v121.0.0-pack.tar";
 
 // Singleton browser instance
 let browser;
@@ -61,7 +61,6 @@ async function checkPageStatus(url) {
   let statusCode;
   let page;
 
-
   try {
     const browser = await getBrowser();
     page = await browser.newPage();
@@ -81,68 +80,13 @@ async function checkPageStatus(url) {
       }
     }
   }
-
   return statusCode === 200;
 }
 
-/**
- * API Route handler
- */
-export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const url = searchParams.get("url");
-
-  if (!url) {
-    return new Response(
-      JSON.stringify({ error: "URL parameter is required" }),
-      {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-  }
-
-  try {
-    const status = await checkPageStatus(url);
-
-    return new Response(
-      JSON.stringify({
-        statusCode: status ? 200 : 404,
-        is200: status,
-        url: url,
-      }),
-      {
-        status: 200, // Always return HTTP 200 from the API itself
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store, max-age=0"
-        },
-      }
-    );
-  } catch (error) {
-    console.error("API error:", error);
-
-    return new Response(
-      JSON.stringify({
-        error: "Failed to check URL status: " + error.message,
-        statusCode: 500,
-        is200: false,
-        url: url
-      }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-  }
-
-}
-
 export const POST = async (req) => {
+  await connectMongoDB();
+  const { graphData, Name, Email, survey, data } = await req.json();
   try {
-    // const graphData = { multipleChart: 'Sample Chart Data', barChart1: 'Sample Bar Chart 1', barChart2: 'Sample Bar Chart 2' };
-    const { graphData, Name, Email, survey } = await req.json();
-
     const htmlContent = htmlTemplate.
       replace('{{multipleChart}}', graphData.multipleChart)
       .replace('{{barChart1}}', graphData.barChart1)
@@ -244,8 +188,6 @@ export const POST = async (req) => {
       },
     });
 
-    const pdfBase64 = pdfBuffer.toString('base64');
-
     await browser.close();
 
     // Create Nodemailer transporter
@@ -256,8 +198,6 @@ export const POST = async (req) => {
         pass: process.env.EMAIL_PASS,// Use app password
       },
     });
-
-
 
     // Email content and PDF attachment
     const mailOptions = {
@@ -316,7 +256,18 @@ export const POST = async (req) => {
     };
 
     // Send the email
-    await transporter.sendMail(mailOptions);
+    const mailSent = await transporter.sendMail(mailOptions);
+
+    if (mailSent.messageId) {
+      const newSurvey = new SurveyData({
+        email: Email,
+        OrganizationName: Name,
+        data,
+        status: "success"
+      })
+      const saved = await newSurvey.save()
+      console.log("Survey saved successfully:", saved);
+    }
 
     return new NextResponse(pdfBuffer, {
       status: 200,
@@ -325,8 +276,21 @@ export const POST = async (req) => {
         'Content-Disposition': 'attachment; filename="report.pdf"',
       },
     });
+    
   } catch (error) {
-    console.error("Email send error:", error);
+    console.error("Error generating PDF", error);
+    
+    const newSurvey = new SurveyData({
+      email: Email,
+      OrganizationName: Name,
+      data,
+      status: "error",
+      error: error,
+    })
+
+    const saved = await newSurvey.save()
+    console.log("Survey saved successfully:", saved);
+
     return NextResponse.json({ message: "Error sending email", error }, { status: 500 });
   }
 };
