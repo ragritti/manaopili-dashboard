@@ -15,14 +15,11 @@ export default function Dashboard({ data , handleGenerate}) {
 
   if (!data.length) return <div>Loading...</div>
 
-
   const getData = (org) => {
     const requiredData = {
       OrganizationName: org?.OrganizationName,
       email: org?.email,
-      people: org?.people,
-      process: org?.process,
-      technology: org?.technology
+      data:org?.data
     }
     return JSON.stringify(requiredData, null, 2)
   }
@@ -48,6 +45,7 @@ export default function Dashboard({ data , handleGenerate}) {
               <TableRow>
                 <TableHead>Organization Name</TableHead>
                 <TableHead>Email</TableHead>
+                <TableHead>Created At</TableHead>
                 <TableHead>Data</TableHead>
                 <TableHead>Generate AI Response</TableHead>
               </TableRow>
@@ -57,6 +55,10 @@ export default function Dashboard({ data , handleGenerate}) {
                 <TableRow key={org._id}>
                   <TableCell>{org.OrganizationName}</TableCell>
                   <TableCell>{org.email}</TableCell>
+                  <TableCell>
+                    {new Date(org.createdAt).toLocaleDateString()}{" "}
+                    {new Date(org.createdAt).toLocaleTimeString()}
+                  </TableCell>
                   <TableCell>
                     <div className="flex justify-start items-center gap-2">
                       <Button
@@ -92,7 +94,7 @@ export default function Dashboard({ data , handleGenerate}) {
       </Card>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-4xl h-[80vh]">
+        <DialogContent className="max-w-4xl h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{selectedOrg?.OrganizationName} data</DialogTitle>
           </DialogHeader>

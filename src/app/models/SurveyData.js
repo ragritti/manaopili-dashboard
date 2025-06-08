@@ -12,7 +12,7 @@ const SurveyDataSchema = new Schema({
         require: false,
         type: String,
         default: null
-    }
-});
+    },
+}, { timestamps: true });
 
 module.exports = mongoose.models.SurveyData || mongoose.model('SurveyData', SurveyDataSchema);
