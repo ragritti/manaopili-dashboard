@@ -48,6 +48,7 @@ export default function Dashboard({ data , handleGenerate}) {
                 <TableHead>Created At</TableHead>
                 <TableHead>Data</TableHead>
                 <TableHead>Generate AI Response</TableHead>
+                <TableHead>Error</TableHead>
               </TableRow>
             </TableHeader>}
             <TableBody>
@@ -82,6 +83,7 @@ export default function Dashboard({ data , handleGenerate}) {
                     </Button>
                     {response&&<div>{response}</div>}
                   </TableCell>
+                  <TableCell>{org.error || "-"}</TableCell>
                 </TableRow>
               )) :
                 <div className="flex w-full justify-center items-center h-52 text-gray-500">
