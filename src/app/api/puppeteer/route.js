@@ -248,7 +248,7 @@ export const POST = async (req) => {
 `,
       attachments: [
         {
-          filename: "application.pdf",
+          filename: "Survey_Results.pdf",
           content: pdfBuffer,
           contentType: "application/pdf",
         },
