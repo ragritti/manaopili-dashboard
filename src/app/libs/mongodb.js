@@ -17,13 +17,22 @@ if (!cached) {
 
 async function dbConnect() {
     if (cached.conn) {
+        console.log("Using cached MongoDB connection");
         return cached.conn;
     }
 
     if (!cached.promise) {
-        cached.promise = mongoose.connect(MONGODB_URI).then((mongoose) => {
-            return mongoose;
-        });
+        try {
+            cached.promise = mongoose.connect(MONGODB_URI).then((mongoose) => {
+                return mongoose;
+            });
+            console.log("New MongoDB connection established");
+        }
+        catch (error) {
+            console.error("MongoDB connection error:", error);
+            cached.promise = null; // Reset promise on error
+            throw error; // Rethrow the error after logging
+        }
     }
     cached.conn = await cached.promise;
     return cached.conn;
