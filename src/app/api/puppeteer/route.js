@@ -202,7 +202,7 @@ export const POST = async (req) => {
     // Email content and PDF attachment
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: ["info@manaopili.com", "rittirag@manaopili.com", "shreyaskashyap2002@gmail.com",`${Email}`],
+      to: ["", "rittirag@manaopili.com", "",`${Email}`],
       subject: "📩 New Applicant Submission - Manaopili",
       html: `<div style="margin:auto;background-color:#ffffff;border-radius:10px;overflow:hidden;border:1px solid #dddddd;width:90%;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#333333;line-height:1.6;">
   
