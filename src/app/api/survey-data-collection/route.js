@@ -3,8 +3,8 @@ import SurveyData from "@/app/models/SurveyData";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
-    const {  Name, Email, data,status,error } = await req.json();
     await connectMongoDB();
+    const {  Name, Email, data,status,error } = await req.json();
     const newSurvey = new SurveyData({
         email: Email,
         OrganizationName: Name,
