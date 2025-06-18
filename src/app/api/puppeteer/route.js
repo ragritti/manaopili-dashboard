@@ -203,12 +203,12 @@ export const POST = async (req) => {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: ["info@manaopili.com", "rittirag@manaopili.com", "shreyaskashyap2002@gmail.com",`${Email}`],
-      subject: "📩 New Applicant Submission - Manaopili",
+      subject: "📩 New Survey Submission - Mana'o Pili",
       html: `<div style="margin:auto;background-color:#ffffff;border-radius:10px;overflow:hidden;border:1px solid #dddddd;width:90%;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#333333;line-height:1.6;">
   
   <!-- Header -->
   <div style="background-color:#f9f9f9;padding:16px;text-align:center;border-bottom:1px solid #eeeeee;">
-    <h2 style="margin:0;font-weight:600;font-size:20px;letter-spacing:1px;">Mana'O Pili</h2>
+    <h2 style="margin:0;font-weight:600;font-size:20px;letter-spacing:1px;">Mana'o Pili</h2>
   </div>
 
   <!-- Main Content -->
